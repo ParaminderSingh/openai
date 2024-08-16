@@ -123,7 +123,7 @@ const ConversationListItem: React.FC<ConversationListItemProps> = ({
           ) : (
             <div
               className="relative flex-1 w-full text-left overflow-hidden whitespace-nowrap overflow-ellipsis max-h-5 break-all">
-              {convo.title}
+              {convo.conversationTitle? convo.conversationTitle: convo.title}
             </div>
           )}
           <div
@@ -181,7 +181,7 @@ const ConversationListItem: React.FC<ConversationListItemProps> = ({
           <ChatBubbleLeftIcon {...iconProps} />
           <div
             className="relative flex-1 overflow-hidden text-left whitespace-nowrap overflow-ellipsis max-h-5 break-all">
-            {convo.title}
+            {convo.conversationTitle? convo.conversationTitle: convo.title}
           </div>
         </button>
       </li>

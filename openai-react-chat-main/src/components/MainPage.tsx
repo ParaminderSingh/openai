@@ -272,6 +272,7 @@ const MainPage: React.FC<MainPageProps> = ({
       model: model?.id || DEFAULT_MODEL,
       systemPrompt: instructions,
       messages: "[]",
+      conversationTitle: location.state.conversationTitle,
     };
     setConversation(conversation);
     ConversationService.addConversation(conversation);

@@ -11,6 +11,7 @@ import Tooltip from "./Tooltip";
 import UserSettingsModal from "./UserSettingsModal";
 import ChatShortcuts from "./ChatShortcuts";
 import ConversationList from "./ConversationList";
+import NewConversationModal from "./NewConversationModal";
 
 interface SidebarProps {
   className: string;
@@ -28,13 +29,27 @@ const Sidebar: React.FC<SidebarProps> = ({
   const { t } = useTranslation();
   const navigate = useNavigate();
   const [isSettingsModalVisible, setSettingsModalVisible] = useState(false);
+  const [isNewConversation, setIsNewConversation] = useState(false);
 
   const openSettingsDialog = () => {
     setSettingsModalVisible(true);
   };
 
-  const handleNewChat = () => {
-    navigate("/", { state: { reset: Date.now() } });
+  const handleCloseConversation = () => {
+    setIsNewConversation(false);
+  }
+
+  const handleNewChat = (conversationTitle: string) => {
+    setIsNewConversation(false);
+    navigate("/", { state: { reset: Date.now(), conversationTitle: conversationTitle } });
+  };
+
+  const showNewConversationModal = () => {
+    setIsNewConversation(true);
+  };
+
+  const handleCreateNewChat = (conversationTitle: string) => {
+    handleNewChat(conversationTitle);
   };
 
   const handleOnClose = () => {
@@ -61,6 +76,11 @@ const Sidebar: React.FC<SidebarProps> = ({
         isVisible={isSettingsModalVisible}
         onClose={handleOnClose}
       />
+      <NewConversationModal
+        isVisible={isNewConversation}
+        handleCreateNewChat={handleCreateNewChat}
+        onClose={handleCloseConversation}
+      />
       {/* sidebar is always dark mode*/}
       <div className="sidebar duration-500 transition-all h-full flex-shrink-0 overflow-x-hidden dark:bg-gray-900">
         <div className="h-full w-[260px]">
@@ -77,7 +97,7 @@ const Sidebar: React.FC<SidebarProps> = ({
                        transition-colors duration-200 dark:text-white
                        cursor-pointer text-sm rounded-md border dark:border-white/20 hover:bg-gray-500/10 h-11
                        bg-white dark:bg-transparent flex-grow overflow-hidden"
-                    onClick={handleNewChat}
+                    onClick={showNewConversationModal}
                     type="button"
                   >
                     <PlusIcon {...iconProps} />

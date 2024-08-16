@@ -13,6 +13,7 @@ export interface Conversation {
   systemPrompt: string,
   messages: ChatMessage[], // stringified ChatMessage[]
   marker?: boolean;
+  conversationTitle?: string;
 }
 
 export interface Conversations {
@@ -20,6 +21,7 @@ export interface Conversations {
   id: number;
   timestamp: number;
   marker?: boolean;
+
 }
 
 export interface ConversationChangeEvent {
